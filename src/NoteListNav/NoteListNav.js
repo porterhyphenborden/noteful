@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NotefulContext from '../NotefulContext';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import './NoteListNav.css';
 
 class NoteListNav extends Component {
@@ -21,6 +21,9 @@ class NoteListNav extends Component {
             </li>
           )}
         </ul>
+        <Link className='add-folder-button' to='/add-folder'>
+          Add Folder
+        </Link>
       </div>
     )
   }

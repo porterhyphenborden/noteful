@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Moment from 'react-moment';
+import { format } from 'date-fns';
 import NotefulContext from '../NotefulContext';
+import PropTypes from 'prop-types';
 import './Note.css'
 
 class Note extends Component {
   static contextType = NotefulContext;
 
-  deleteNote(noteId, callback) {
+  static defaultProps = {
+    name: '',
+    id: '',
+    content: '',
+    modified: '',
+    onDeleteNote: () => {},
+  }
+
+  handleDeleteNote(noteId) {
     fetch(`http://localhost:9090/notes/` + `/${noteId}`, {
       method: 'DELETE',
       headers: {
@@ -22,8 +31,8 @@ class Note extends Component {
         }
         return res.json()
       })
-      .then(data => {
-        callback(noteId)
+      .then(() => {
+        this.context.deleteNote(noteId)
         this.props.onDeleteNote(noteId)
       })
       .catch(error => {
@@ -32,7 +41,7 @@ class Note extends Component {
   }
 
   render () {
-    const { name, id, modified } = this.props
+    const { id, name, modified, content } = this.props
     return (
       <NotefulContext.Consumer>
         {(context) => (
@@ -43,12 +52,15 @@ class Note extends Component {
               </Link>
             </h2>
             <p>
-              Last modified: <Moment format="MM/DD/YYYY">{modified}</Moment>
+              Last modified: {format(modified, 'Do MMM YYYY')}
             </p>
+            <div className='note-content'>
+              <p>{content}</p>
+            </div>
             <button
               className='delete-note'
               onClick={() => {
-                this.deleteNote(id, context.deleteNote)
+                this.handleDeleteNote(id)
               }}
             >
               Delete
@@ -58,6 +70,13 @@ class Note extends Component {
       </NotefulContext.Consumer>
     )
   }
+}
+
+Note.propTypes= {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  content: PropTypes.string,
+  onDeleteNote: PropTypes.func,
 }
 
 export default Note;

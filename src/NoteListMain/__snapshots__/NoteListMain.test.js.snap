@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoteListMain component renders a .NoteListMain by default 1`] = `
+<section
+  className="NoteListMain"
+>
+  <ul />
+  <Link
+    className="add-note-button"
+    to="/add-note"
+  >
+    Add Note
+  </Link>
+</section>
+`;

@@ -1,10 +1,22 @@
-li.note-in-list {
-    border: 2px solid black;
-    margin: 0 10px 5px 10px;
-    padding: 5px;
+.NoteListMain ul {
+    margin: 5px 0;
+    padding: 0;
 }
 
-.NoteListMain ul {
-    margin: 0;
-    padding: 0;
+.NoteListMain li {
+    margin: 5px 0;
+}
+
+.add-note-button {
+    display: block;
+    margin: 10px 10px;
+    border: 2px solid lightgrey;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 5px 0px;
+    background-color: rgb(95, 95, 95);
+    color: rgb(248, 248, 198);
+    text-align: center;
+    width: 120px;
 }

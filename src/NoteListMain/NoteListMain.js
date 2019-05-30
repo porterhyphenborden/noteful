@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Note from '../Note/Note.js';
 import NotefulContext from '../NotefulContext';
-import { getNotesForFolder } from '../notes-helpers'
+import { getNotesForFolder } from '../notes-helpers';
+import PropTypes from 'prop-types';
 import './NoteListMain.css';
 
 class NoteListMain extends Component {
@@ -30,10 +32,16 @@ class NoteListMain extends Component {
             </li>
           )}
         </ul>
+        <Link className='add-note-button' to='/add-note'>
+          Add Note
+        </Link>
       </section>
     )
-
   }
+}
+
+NoteListMain.propTypes= {
+  match: PropTypes.object,
 }
 
 export default NoteListMain;

@@ -1,13 +1,31 @@
 ul.folder-list {
-    margin: 0;
+    margin: 5px;
     padding: 0;
 }
 
 .folder-list li {
-    border: 2px solid black;
-    margin: -2px 0;
+    border: 2px solid lightgrey;
     width: 100%;
-    text-align: center;
     font-size: 24px;
-    padding: 20px 0;
+    margin: 5px 0;
+    padding: 5px 0 20px 5px;
+    background-color: rgb(193, 240, 250);
+}
+
+.folder-list li a {
+    color: rgb(95, 95, 95);
+}
+
+.add-folder-button {
+    display: block;
+    margin: 10px 10px;
+    border: 2px solid lightgrey;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 5px 0px;
+    background-color: rgb(95, 95, 95);
+    color: rgb(193, 240, 250);
+    text-align: center;
+    width: 120px;
 }
