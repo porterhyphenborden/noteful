@@ -17,7 +17,7 @@ class Note extends Component {
   }
 
   handleDeleteNote(noteId) {
-    fetch(`http://localhost:9090/notes/` + `/${noteId}`, {
+    fetch(`http://localhost:9090/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'

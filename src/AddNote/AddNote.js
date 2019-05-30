@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NotefulContext from '../NotefulContext';
+import './AddNote.css';
 
 class AddNote extends Component {
     constructor(props) {
@@ -71,7 +72,7 @@ class AddNote extends Component {
                         )}
                     </select>
                 </div>
-                <button type="submit">
+                <button className='save-note' type="submit">
                     Save
                 </button>
             </form>

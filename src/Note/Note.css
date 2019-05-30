@@ -21,8 +21,9 @@ button.delete-note {
     font-size: 14px;
     font-weight: 700;
     padding: 5px 0px;
-    background-color: lightgrey;
+    background-color: rgb(231, 230, 230);
     color: rgb(95, 95, 95);
     text-align: center;
     width: 120px;
+    margin-top: 10px;
 }

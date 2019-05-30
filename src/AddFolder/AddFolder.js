@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NotefulContext from '../NotefulContext';
 import ValidationError from './ValidationError';
+import './AddFolder.css';
 
 class AddFolder extends Component {
     constructor(props) {
@@ -94,7 +95,7 @@ class AddFolder extends Component {
                     <input type="text" name="folderName" id="folderName" onChange={e => this.updateFolderName(e.target.value)}/>
                     <ValidationError hasError={!this.state.folderNameValid} message={this.state.validationMessage}/>
                 </div>
-                <button type="submit" disabled={!this.state.formValid}>
+                <button className='save-folder' type="submit" disabled={!this.state.formValid}>
                     Save
                 </button>
             </form>
