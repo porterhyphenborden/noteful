@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import NotefulContext from '../NotefulContext';
+import NoteValidationError from './NoteValidationError'; 
 import './AddNote.css';
 
 class AddNote extends Component {
     constructor(props) {
         super(props);
-        this.noteNameInput = React.createRef();
-        this.noteContentInput = React.createRef();
-        this.folderSelect = React.createRef();
+        this.state = {
+            noteName: '',
+            noteContent: '',
+            folder: '',
+            noteNameValid: false,
+            noteContentValid: false,
+            folderValid: false,
+            formValid: false,
+            validationMessages: {
+                name: '',
+                content: '',
+                folder: ''
+            }
+        }
     }
 
     static defaultProps = {
@@ -18,12 +30,89 @@ class AddNote extends Component {
 
     static contextType = NotefulContext;
 
+    updateNoteName(noteName) {
+        this.setState({noteName}, () => {this.validateName(noteName)});
+    }
+
+    updateNoteContent(noteContent) {
+        this.setState({noteContent}, () => {this.validateContent(noteContent)});
+    }
+    
+    updateFolder(folder) {
+        this.setState({folder}, () => {this.validateFolder(folder)});
+    }
+
+    validateName(fieldValue) {
+        const fieldErrors = {...this.state.validationMessages};
+        let hasError = false;
+        
+        fieldValue = fieldValue.trim();
+        if(fieldValue.length === 0) {
+            fieldErrors.name = 'Name is required.';
+            hasError = true;
+        } 
+        else {
+            fieldErrors.name = '';
+            hasError = false;
+        }
+    
+        this.setState({
+            validationMessages: fieldErrors,
+            noteNameValid: !hasError
+        }, this.formValid );
+    }
+
+    validateContent(fieldValue) {
+        const fieldErrors = {...this.state.validationMessages};
+        let hasError = false;
+        
+        fieldValue = fieldValue.trim();
+        if(fieldValue.length === 0) {
+            fieldErrors.content = 'Note content is required.';
+            hasError = true;
+        } 
+        else {
+            fieldErrors.content = '';
+            hasError = false;
+        }
+    
+        this.setState({
+            validationMessages: fieldErrors,
+            noteContentValid: !hasError
+        }, this.formValid );
+    }
+
+    validateFolder(fieldValue) {
+        const fieldErrors = {...this.state.validationMessages};
+        let hasError = false;
+        
+        if ((fieldValue === null) || (fieldValue === '...')) {
+            fieldErrors.folder = 'Please select a folder';
+            hasError = true;
+        } 
+        else {
+            fieldErrors.folder = '';
+            hasError = false;
+        }
+    
+        this.setState({
+            validationMessages: fieldErrors,
+            folderValid: !hasError
+        }, this.formValid );
+    }
+
+    formValid() {
+        this.setState({
+          formValid: this.state.noteNameValid && this.state.noteContentValid && this.state.folderValid
+        });
+    }
+
     handleSubmit(event) {
         event.preventDefault();
         const newNote = {
-            name: this.noteNameInput.current.value,
-            content: this.noteContentInput.current.value,
-            folderId: this.folderSelect.current.value,
+            name: this.state.noteName,
+            content: this.state.noteContent,
+            folderId: this.state.folder,
             modified: new Date(),
         }
         fetch(`http://localhost:9090/notes`, {
@@ -54,16 +143,18 @@ class AddNote extends Component {
             <form className="add-note-form" onSubmit={e => this.handleSubmit(e)}>
                 <h2>Add a note</h2>
                 <div className="form-group">
-                    <label htmlFor="noteName">Note Name</label>
-                    <input type="text" name="noteName" id="noteName" ref={this.noteNameInput}/>
+                    <label htmlFor="noteName">Name</label>
+                    <input type="text" name="noteName" id="noteName" onChange={e => this.updateNoteName(e.target.value)}/>
+                    <NoteValidationError hasError={!this.state.noteNameValid} message={this.state.validationMessages.name}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor='note-content'>Content</label>
-                    <textarea id='note-content' name='note-content' ref={this.noteContentInput}/>
+                    <textarea id='note-content' name='note-content' onChange={e => this.updateNoteContent(e.target.value)}/>
+                    <NoteValidationError hasError={!this.state.noteContentValid} message={this.state.validationMessages.content}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor='folder-select'>Folder</label>
-                    <select id='folder-select' name='folder-select' ref={this.folderSelect}>
+                    <select id='folder-select' name='folder-select' onChange={e => this.updateFolder(e.target.value)}>
                         <option value={null}>...</option>
                         {folders.map(folder =>
                             <option key={folder.id} value={folder.id}>
@@ -71,8 +162,9 @@ class AddNote extends Component {
                             </option>
                         )}
                     </select>
+                    <NoteValidationError hasError={!this.state.folderValid} message={this.state.validationMessages.folder}/>
                 </div>
-                <button className='save-note' type="submit">
+                <button className='save-note' type="submit" disabled={!this.state.formValid}>
                     Save
                 </button>
             </form>
