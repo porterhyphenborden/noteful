@@ -17,7 +17,7 @@ class Note extends Component {
   }
 
   handleDeleteNote(noteId) {
-    fetch(`http://localhost:8000/noteful/api/notes/${noteId}`, {
+    fetch(config.API_ENDPOINT + `notes/${noteId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'

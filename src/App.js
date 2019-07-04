@@ -46,8 +46,8 @@ class App extends Component {
 
   componentDidMount() {
     Promise.all([
-      fetch(`http://localhost:8000/noteful/api/notes`),
-      fetch(`http://localhost:8000/noteful/api/folders`)
+      fetch(config.API_ENDPOINT + `notes`),
+      fetch(config.API_ENDPOINT + `folders`)
     ])
       .then(([notesRes, foldersRes]) => {
         if (!notesRes.ok)

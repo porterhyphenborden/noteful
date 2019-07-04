@@ -64,7 +64,7 @@ class AddFolder extends Component {
         const folder = {
             name: this.state.folderName,
         };
-        fetch(`http://localhost:8000/noteful/api/folders`, {
+        fetch(config.API_ENDPOINT + `folders`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

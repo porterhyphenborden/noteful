@@ -115,7 +115,7 @@ class AddNote extends Component {
             folder_id: this.state.folder,
             modified: new Date(),
         }
-        fetch(`http://localhost:8000/noteful/api/notes`, {
+        fetch(config.API_ENDPOINT + `notes`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
