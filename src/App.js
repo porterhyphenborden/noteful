@@ -17,8 +17,9 @@ class App extends Component {
   }
 
   deleteNote = noteId => {
+    const noteIdInt = parseInt(noteId)
     const newNotes = this.state.notes.filter(note =>
-      note.id !== noteId
+      note.id !== noteIdInt
     )
     this.setState({
       notes: newNotes
@@ -45,8 +46,8 @@ class App extends Component {
 
   componentDidMount() {
     Promise.all([
-      fetch(`http://localhost:9090/notes`),
-      fetch(`http://localhost:9090/folders`)
+      fetch(`http://localhost:8000/noteful/api/notes`),
+      fetch(`http://localhost:8000/noteful/api/folders`)
     ])
       .then(([notesRes, foldersRes]) => {
         if (!notesRes.ok)

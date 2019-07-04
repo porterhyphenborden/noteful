@@ -112,10 +112,10 @@ class AddNote extends Component {
         const newNote = {
             name: this.state.noteName,
             content: this.state.noteContent,
-            folderId: this.state.folder,
+            folder_id: this.state.folder,
             modified: new Date(),
         }
-        fetch(`http://localhost:9090/notes`, {
+        fetch(`http://localhost:8000/noteful/api/notes`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

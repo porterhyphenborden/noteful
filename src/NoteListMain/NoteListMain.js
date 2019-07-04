@@ -17,8 +17,9 @@ class NoteListMain extends Component {
 
   render ()  {
     const { folderId } = this.props.match.params
+    const folderIdInt = parseInt(folderId)
     const { notes=[] } = this.context
-    const notesForFolder = getNotesForFolder(notes, folderId)
+    const notesForFolder = getNotesForFolder(notes, folderIdInt)
     return (
       <section className='NoteListMain'>
         <ul>

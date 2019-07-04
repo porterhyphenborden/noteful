@@ -17,7 +17,7 @@ class Note extends Component {
   }
 
   handleDeleteNote(noteId) {
-    fetch(`http://localhost:9090/notes/${noteId}`, {
+    fetch(`http://localhost:8000/noteful/api/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'
@@ -29,7 +29,7 @@ class Note extends Component {
             throw error
           })
         }
-        return res.json()
+        //return res.json()
       })
       .then(() => {
         this.context.deleteNote(noteId)
@@ -73,7 +73,6 @@ class Note extends Component {
 }
 
 Note.propTypes= {
-  id: PropTypes.string,
   name: PropTypes.string,
   content: PropTypes.string,
   onDeleteNote: PropTypes.func,
