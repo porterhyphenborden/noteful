@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import NotefulContext from '../NotefulContext';
 import PropTypes from 'prop-types';
+import config from '../config';
 import './Note.css'
 
 class Note extends Component {

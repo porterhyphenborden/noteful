@@ -8,6 +8,7 @@ import ErrorBoundary from './ErrorBoundary';
 import AddFolder from './AddFolder/AddFolder';
 import AddNote from './AddNote/AddNote';
 import NotefulContext from './NotefulContext';
+import config from './config';
 import './App.css';
 
 class App extends Component {

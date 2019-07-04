@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NotefulContext from '../NotefulContext';
 import ValidationError from './ValidationError';
+import config from '../config';
 import './AddFolder.css';
 
 class AddFolder extends Component {
